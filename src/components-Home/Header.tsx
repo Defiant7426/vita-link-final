@@ -4,7 +4,7 @@ import { ThemeContext } from "../../ThemeContext";
 export default function Header() {
   const [menuQuest, setMenuQuest] = useState(false);
   const [menuEspecialidades, setMenuEspecialidades] = useState(false);
-  const [isInHeader, setIsInHeader] = useState(false);
+  //const [isInHeader, setIsInHeader] = useState(false);
 
   // Consumir el contexto del tema
   const { theme, toggleTheme } = useContext(ThemeContext);

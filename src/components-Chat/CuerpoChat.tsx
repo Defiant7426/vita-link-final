@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useContext } from "react";
 import { ThemeContext } from "../../ThemeContext";
@@ -47,7 +47,7 @@ export default function CuerpoChat() {
     setInputValue('');
 
     try {
-      const response = await axios.post('http://localhost:3001/api/chat', {
+      const response = await axios.post('/api/chat', {
         username,
         messages: newMessages.map(msg => ({
           role: msg.sender === username ? 'user' : 'assistant',

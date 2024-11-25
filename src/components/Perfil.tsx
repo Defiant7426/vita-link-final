@@ -1,7 +1,13 @@
 import TopBar from '../components-Home/TopBar';
 import Header from '../components-Home/Header';
 
-function InfoSection({ title, imageSrc, items }) {
+interface InfoSectionProps {
+  title: string;
+  imageSrc: string;
+  items: []; // Puedes especificar un tipo más preciso si conoces la estructura de los elementos en items
+}
+
+function InfoSection({ title, imageSrc, items }: InfoSectionProps) {
   return (
     <div className="flex flex-col md:flex-row items-center bg-white shadow-md rounded-lg p-6 mb-8">
       {/* Image */}
