@@ -87,7 +87,7 @@ export default function Cardiologia() {
 
       {/* Call to Action */}
       <div className="max-w-7xl mx-auto px-4 py-14 bg-gray-100 rounded-lg text-center">
-        <h2 className="text-4xl font-semibold mb-4">
+        <h2 className="text-4xl font-semibold mb-4 pb-10">
           Agenda tu cita con un especialista en cardiología hoy mismo.
         </h2>
         <a
