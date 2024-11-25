@@ -13,7 +13,7 @@ export default function Footer() {
 
   return (
     <footer className={`${footerClasses} border-t border-gray-300 pt-10 transition-colors duration-300`}>
-      <div className="max-w-7xl mx-auto text-sm mb-24">
+      <div className="max-w-7xl mx-auto text-sm ">
         <div className="grid grid-cols-5 gap-6">
           <div>
             <div className="mb-10">
@@ -60,28 +60,19 @@ export default function Footer() {
 
           <div></div>
 
-          <div className={`space-y-3 font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-900'}`}>
-            <p><a href="#" className={linkClasses}>Features</a></p>
-            <p><a href="#" className={linkClasses}>Enterprise</a></p>
-            <p><a href="#" className={linkClasses}>Precios</a></p>
+          <div className={`space-y-3 font-medium mt-10 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-900'}`}>
+            <p><a href="#" className={linkClasses}>Términos y Condiciones</a></p>
+            <p><a href="#" className={linkClasses}>Sobre Nosotros</a></p>
+            <p><a href="#" className={linkClasses}>Contactenos</a></p>
           </div>
 
-          <div className={`space-y-3 font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-900'}`}>
-            <p><a href="#" className={linkClasses}>Compañía</a></p>
-            <p><a href="#" className={linkClasses}>Blogs</a></p>
-            <p><a href="#" className={linkClasses}>Press</a></p>
+          <div className={`space-y-3 font-medium mt-10 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-900'}`}>
+            <p><a href="#" className={linkClasses}>Nuestros Especialistas</a></p>
             <p><a href="#" className={linkClasses}>Creadores</a></p>
             <p><a href="#" className={linkClasses}>Soporte</a></p>
           </div>
 
-          <div>
-            <ul className={`space-y-3 font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-900'}`}>
-              <li><a href="#" className={linkClasses}>Inicio</a></li>
-              <li><a href="#" className={linkClasses}>Servicios</a></li>
-              <li><a href="#" className={linkClasses}>Acerca de</a></li>
-              <li><a href="#" className={linkClasses}>Contacto</a></li>
-            </ul>
-          </div>
+
         </div>
       </div>
     </footer>
