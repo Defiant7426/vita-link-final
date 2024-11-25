@@ -5,6 +5,7 @@ import Home from './components/Home';
 import Chatcita from './components/Chatcita';
 import Perfil from './components/Perfil';
 import Informacion from './components/Informacion';
+import Cardiologia from './components/Cardiologia';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/chatcita" element={<Chatcita />} />
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/informacion" element={<Informacion />} />
+        <Route path="/cardiologia" element={<Cardiologia />} />
       </Routes>
     </Router>
   )
