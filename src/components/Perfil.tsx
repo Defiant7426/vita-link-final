@@ -4,7 +4,7 @@ import Header from '../components-Home/Header';
 interface InfoSectionProps {
   title: string;
   imageSrc: string;
-  items: []; // Puedes especificar un tipo más preciso si conoces la estructura de los elementos en items
+  items: string[]; // Puedes especificar un tipo más preciso si conoces la estructura de los elementos en items
 }
 
 function InfoSection({ title, imageSrc, items }: InfoSectionProps) {
