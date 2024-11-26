@@ -27,3 +27,29 @@ export const createTable = async () => {
     console.error('Error al crear/verificar la tabla:', err.message);
   }
 };
+
+export const createTableCitas = async () => {
+  const queryText = `
+    CREATE TABLE IF NOT EXISTS citas (
+      id SERIAL PRIMARY KEY,                -- ID único de la cita
+      username TEXT NOT NULL,               -- Nombre de usuario que crea la cita
+      fecha DATE NOT NULL,                  -- Fecha de la cita
+      hora TIME NOT NULL,                   -- Hora de la cita
+      especialidad TEXT,                    -- Especialidad médica (opcional)
+      doctor TEXT                           -- Nombre del doctor (opcional)
+    );
+  `;
+
+  try {
+    await pool.query(queryText);
+    console.log('Tabla citas creada/verificada');
+  } catch (err) {
+    console.error('Error al crear/verificar la tabla citas:', err.message);
+  }
+};
+
+(async () => {
+  await createTable();
+  await createTableCitas();
+})();
+
