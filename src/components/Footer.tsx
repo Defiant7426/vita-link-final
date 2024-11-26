@@ -8,7 +8,7 @@ export default function Footer() {
   const { theme } = useContext(ThemeContext);
 
   // Clases dinámicas basadas en el tema
-  const footerClasses = theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-black';
+  const footerClasses = theme === 'dark' ? 'bg-[#152C2C] text-white' : 'bg-white text-black';
   const linkClasses = theme === 'dark' ? 'hover:text-vita-link hover:underline underline-offset-4 decoration-vita-link' : 'hover:text-vita-link hover:underline underline-offset-4 decoration-vita-link';
 
   return (

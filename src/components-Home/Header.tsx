@@ -9,7 +9,7 @@ export default function Header() {
 
   // Clases dinámicas basadas en el tema
   const headerClasses =
-    theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-black";
+    theme === "dark" ? "bg-[#152C2C] text-white" : "bg-white text-black";
 
   return (
     <header
@@ -55,19 +55,19 @@ export default function Header() {
               className="absolute top-full left-0 w-48 bg-white shadow-lg rounded-md py-2 z-50"
             >
               <a
-                href="/citas/nueva"
+                href="/chatcita"
                 className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
               >
                 Nueva Cita
               </a>
               <a
-                href="/citas/pendientes"
+                href="/citasPendientes"
                 className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
               >
                 Citas Pendientes
               </a>
               <a
-                href="/citas/historial"
+                href="/historialCitas"
                 className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
               >
                 Historial de Citas
@@ -112,13 +112,13 @@ export default function Header() {
                 Cardiología
               </a>
               <a
-                href="/especialidades/pediatria"
+                href="/pediatria"
                 className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
               >
                 Pediatría
               </a>
               <a
-                href="/especialidades/dermatologia"
+                href="/dermatologia"
                 className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
               >
                 Dermatología

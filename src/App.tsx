@@ -9,6 +9,10 @@ import Cardiologia from './components/Cardiologia';
 import TermsAndConditions from './components/TermsAndConditions';
 import ContactUs from './components/ContactUs';
 import Creadores from './components/Creadores'; 
+import CitasPendientes from './components/CitasPendientes';
+import HistorialCitas from './components/HistorialCitas';
+import Dermatologia from './components/Dermatologia';
+import Pediatria from './components/Pediatria';
 
 
 function App() {
@@ -28,6 +32,11 @@ function App() {
         <Route path="/terminos" element={<TermsAndConditions />} />
         <Route path="/contacto" element={<ContactUs />} />
         <Route path="/creadores" element={<Creadores />} />
+
+        <Route path="/pediatria" element={<Pediatria />} />
+        <Route path="/dermatologia" element={<Dermatologia />} />
+        <Route path="/citasPendientes" element={<CitasPendientes />} />
+        <Route path="/historialCitas" element={<HistorialCitas />} />
 
       </Routes>
     </Router>
