@@ -6,6 +6,7 @@ import Chatcita from './components/Chatcita';
 import Perfil from './components/Perfil';
 import Informacion from './components/Informacion';
 import Cardiologia from './components/Cardiologia';
+import TermsAndConditions from './components/TermsAndConditions';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/informacion" element={<Informacion />} />
         <Route path="/cardiologia" element={<Cardiologia />} />
+        <Route path="/terminos" element={<TermsAndConditions />} />
       </Routes>
     </Router>
   )

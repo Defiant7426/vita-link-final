@@ -55,18 +55,18 @@ export default function Footer() {
               {/* Agrega los demás iconos de manera similar */}
             </div>
 
-            <p className="py-4 font-bold">© 2024 Company, Inc. All rights reserved.</p>
+            <p className="py-4 font-bold">© 2024 Empresa, S.A. Todos los derechos reservados.</p>
           </div>
 
           <div></div>
 
-          <div className={`space-y-3 font-medium mt-10 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-900'}`}>
-            <p><a href="#" className={linkClasses}>Términos y Condiciones</a></p>
+          <div className={`space-y-3 font-medium mt-14 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-900'}`}>
+            <p><a href="/terminos" className={linkClasses}>Términos y Condiciones</a></p>
             <p><a href="#" className={linkClasses}>Sobre Nosotros</a></p>
             <p><a href="#" className={linkClasses}>Contactenos</a></p>
           </div>
 
-          <div className={`space-y-3 font-medium mt-10 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-900'}`}>
+          <div className={`space-y-3 font-medium mt-14 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-900'}`}>
             <p><a href="#" className={linkClasses}>Nuestros Especialistas</a></p>
             <p><a href="#" className={linkClasses}>Creadores</a></p>
             <p><a href="#" className={linkClasses}>Soporte</a></p>
