@@ -69,7 +69,6 @@ export default function Footer() {
           <div className={`space-y-3 font-medium mt-14 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-900'}`}>
             {/*<p><a href="#" className={linkClasses}>Nuestros Especialistas</a></p>*/}
             <p><a href="/creadores" className={linkClasses}>Creadores</a></p>
-            <p><a href="#" className={linkClasses}>Soporte</a></p>
           </div>
 
 
