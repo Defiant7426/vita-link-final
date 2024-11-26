@@ -7,6 +7,7 @@ import Perfil from './components/Perfil';
 import Informacion from './components/Informacion';
 import Cardiologia from './components/Cardiologia';
 import TermsAndConditions from './components/TermsAndConditions';
+import ContactUs from './components/ContactUs';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/informacion" element={<Informacion />} />
         <Route path="/cardiologia" element={<Cardiologia />} />
         <Route path="/terminos" element={<TermsAndConditions />} />
+        <Route path="/contacto" element={<ContactUs />} />
       </Routes>
     </Router>
   )

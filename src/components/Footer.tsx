@@ -62,12 +62,12 @@ export default function Footer() {
 
           <div className={`space-y-3 font-medium mt-14 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-900'}`}>
             <p><a href="/terminos" className={linkClasses}>Términos y Condiciones</a></p>
-            <p><a href="#" className={linkClasses}>Sobre Nosotros</a></p>
-            <p><a href="#" className={linkClasses}>Contactenos</a></p>
+            <p><a href="/informacion" className={linkClasses}>Sobre Nosotros</a></p>
+            <p><a href="/contacto" className={linkClasses}>Contactenos</a></p>
           </div>
 
           <div className={`space-y-3 font-medium mt-14 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-900'}`}>
-            <p><a href="#" className={linkClasses}>Nuestros Especialistas</a></p>
+            {/*<p><a href="#" className={linkClasses}>Nuestros Especialistas</a></p>*/}
             <p><a href="#" className={linkClasses}>Creadores</a></p>
             <p><a href="#" className={linkClasses}>Soporte</a></p>
           </div>
