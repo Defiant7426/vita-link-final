@@ -8,6 +8,7 @@ import Informacion from './components/Informacion';
 import Cardiologia from './components/Cardiologia';
 import TermsAndConditions from './components/TermsAndConditions';
 import ContactUs from './components/ContactUs';
+import Creadores from './components/Creadores';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/cardiologia" element={<Cardiologia />} />
         <Route path="/terminos" element={<TermsAndConditions />} />
         <Route path="/contacto" element={<ContactUs />} />
+        <Route path="/creadores" element={<Creadores />} />
       </Routes>
     </Router>
   )
