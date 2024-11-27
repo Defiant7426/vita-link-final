@@ -16,7 +16,7 @@ export default function ResumenConsultas() {
   const { theme } = useContext(ThemeContext);
   const username = localStorage.getItem("username") || "Usuario";
   const userId = localStorage.getItem("userId") || "default";
-  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
+//   {const [audioBlob, setAudioBlob] = useState<Blob | null>(null);}
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   // Mantener el mensaje inicial
@@ -31,7 +31,7 @@ export default function ResumenConsultas() {
     const file = e.target.files?.[0];
     if (file) {
       setLoading(true);
-      setAudioBlob(file);
+      //setAudioBlob(file);
       await sendMessage('Audio cargado y enviado', file);
     }
   };
