@@ -29,7 +29,25 @@ export default function Cardiologia() {
         </div>
       </div>
 
-      
+      {/* Video promocional */}
+      <div className="relative">
+        <div className="relative max-w-7xl py-96 mx-auto px-8 z-30">
+          <div className="max-w-7xl text-white flex flex-col items-center mt-auto">
+            <h1 className="text-6xl font-semibold leading-tight text-center">
+
+            </h1>
+          </div>
+        </div>
+
+        <div className="absolute top-0 z-20  w-full h-full"></div>
+
+        <img
+          src='https://vitalink.nyc3.cdn.digitaloceanspaces.com/nuevo.png'
+          className="absolute top-0 z-10 w-auto min-w-full object-fill max-h-full max-w-none"
+        >
+          
+        </img>
+      </div>
       {/* Compromiso */}
     <div
       className={`max-w-full mx-auto px-4 flex flex-col items-center py-32 ${
@@ -138,7 +156,7 @@ export default function Cardiologia() {
       Confía en nuestros especialistas en pediatría. Agenda tu cita hoy.
     </h2>
     <a
-      href="/cuestionarCita"
+      href="/chatcita"
       className={`bg-vita-link text-white py-4 px-6 rounded-full font-semibold text-lg hover:bg-vita-link-dark mt-8 ${
         theme === 'dark' ? 'hover:bg-vita-link-dark-dark' : 'hover:bg-vita-link-dark-light'
       }`}

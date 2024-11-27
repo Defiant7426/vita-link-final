@@ -13,7 +13,7 @@ type Message = {
 export default function ChatImagen() {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const [messages, setMessages] = useState<Message[]>([
-    { sender: 'Asistente IA', text: 'Hola, ¿en qué puedo ayudarte a interpretar una imagen?' }
+    { sender: 'Asistente IA', text: 'Hola, puedes mandarme una imagen del medicamento para ayudarte!' }
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isListening, setIsListening] = useState(false);
