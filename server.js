@@ -7,6 +7,7 @@ import fs from 'fs';
 import multer from 'multer';
 import { fileURLToPath } from 'url';  // Importar fileURLToPath
 import { dirname } from 'path';       // Importar dirname desde 'path'
+import path from 'path';
 
 
 // Obtener el nombre del archivo y el directorio actual
@@ -253,26 +254,27 @@ app.post('/api/process-audio', upload.single('audio'), async (req, res) => {
   }
 
   try {
-    console.log("Se recibio archivo");
+    console.log("Se recibió archivo");
 
+    // Usar path.join para obtener la ruta del archivo
     const audioPath = path.join(__dirname, 'uploads', req.file.filename);
     console.log("Ruta de archivo: " + audioPath);
 
+    // Crear un flujo de lectura del archivo
     const audioFile = fs.createReadStream(audioPath);
-    console.log("Se almaceno archivo");
+    console.log("Se almacenó archivo");
 
-    const transcription = await openai.audio.transcriptions.create(
-      {
-        model:"whisper-1",
-        file:audioFile
-    }
-    )
+    // Llamar a la API de OpenAI para obtener la transcripción
+    const transcription = await openai.audio.transcriptions.create({
+      model: "whisper-1",
+      file: audioFile,
+    });
 
     console.log("Transcripción realizada");
     const text = transcription.text;
     console.log("Texto transcrito: " + text);
 
-    // Generar resumen con GPT
+    // Generar el resumen con GPT-4
     const response = await openai.chat.completions.create({
       model: "gpt-4",
       messages: [
