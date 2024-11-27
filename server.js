@@ -7,6 +7,7 @@ import { query, createTable } from './db.js';
 import multer from 'multer';
 import fs from 'fs';
 import path from 'path';  // Asegúrate de importar path
+import "dotenv/config";
 
 // Obtener el nombre del archivo y el directorio actual
 const __filename = fileURLToPath(import.meta.url);
