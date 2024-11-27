@@ -3,6 +3,9 @@ import OpenAI from 'openai';
 import cors from 'cors';
 import { query, createTable } from './db.js';
 import "dotenv/config"
+import fs from 'fs';
+import path from 'path';
+import multer from 'multer';
 
 const app = express();
 const port = 3001;
@@ -38,7 +41,7 @@ app.post('/api/login', async (req, res) => {
     );
     if (result.rows.length > 0) {
       res.json({success:true, message: 'Login exitoso', user: result.rows[0] });
-    } else {
+    } else {  
       res.status(401).json({ error: 'Credenciales inválidas' });
     }
   } catch (err) {
@@ -49,6 +52,57 @@ app.post('/api/login', async (req, res) => {
 
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+const upload = multer({ dest: 'uploads/' });
+
+// Endpoint para interpretar una imagen y un mensaje
+app.post('/api/interpret-image', upload.single('image'), async (req, res) => {
+  const imagePath = req.file ? req.file.path : null;
+  const message = req.body.message || '';
+
+  try {
+    let imageBase64 = null;
+    if (imagePath) {
+      const imageBuffer = fs.readFileSync(imagePath);
+      imageBase64 = imageBuffer.toString('base64');
+    }
+
+    const messages = [
+      {
+        role: "user",
+        content: [
+          {
+            type: "text",
+            text: message,
+          },
+        ],
+      }
+    ];
+
+    if (imageBase64) {
+      messages[0].content.push({
+        type: "image_url",
+        image_url: {
+          url: `data:image/jpeg;base64,${imageBase64}`
+        },
+      });
+    }
+
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: messages
+    });
+
+    res.json({ description: response.choices[0].message.content });
+  } catch (error) {
+    console.error("Error procesando la imagen:", error);
+    res.status(500).json({ error: 'No se pudo interpretar la.' });
+  } finally {
+    if (imagePath) {
+      fs.unlinkSync(imagePath); // Elimina el archivo temporal
+    }
+  }
+});
 
 app.get('/api/citas', async (req, res) => {
   const { username } = req.query;

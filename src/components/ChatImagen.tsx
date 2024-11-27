@@ -3,13 +3,14 @@ import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import { ThemeContext } from "../../ThemeContext";
 
-export default function CuerpoChat() {
+export default function ChatImagen() {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const [messages, setMessages] = useState([
-    { sender: 'Asistente IA', text: 'Hola, ¿en qué puedo ayudarte a reservar una cita médica?' }
+    { sender: 'Asistente IA', text: 'Hola, ¿en que te puedo ayudar?' }
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isListening, setIsListening] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const { theme } = useContext(ThemeContext);
   const username = localStorage.getItem("username") || "Paciente";
 
@@ -32,37 +33,33 @@ export default function CuerpoChat() {
 
   // Función para convertir texto a voz
   const speakText = (text: string) => {
-    text = text.replace(/[*#]/g, ""); 
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'es-ES'; // Idioma español
     window.speechSynthesis.speak(utterance);
   };
 
-  // Enviar el mensaje
+  // Enviar el mensaje y la imagen
   const sendMessage = async (message: string) => {
-    if (message.trim() === '') return;
+    if (message.trim() === '' && !selectedFile) return;
 
     const newMessages = [...messages, { sender: username, text: message }];
     setMessages(newMessages);
     setInputValue('');
 
     try {
-      const response = await axios.post('http://localhost:3001/api/chat', {
-        username,
-        messages: newMessages.map(msg => ({
-          role: msg.sender === username ? 'user' : 'assistant',
-          content: msg.text
-        }))
+      const formData = new FormData();
+      formData.append('message', message);
+      if (selectedFile) {
+        formData.append('image', selectedFile);
+      }
+
+      const response = await axios.post('http://localhost:3001/api/interpret-image', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
       });
 
-      const gptResponse = response.data.response;
-
-      if (gptResponse.toLowerCase().includes('cita confirmada')) {
-        const citaData = extractCitaData(gptResponse); // Extraer datos de la cita
-        if (citaData) {
-          await axios.post('/api/citas', { username, ...citaData });
-        }
-      }
+      const gptResponse = response.data.description;
 
       // Mostrar respuesta de GPT y reproducirla
       setMessages([...newMessages, { sender: 'Asistente IA', text: gptResponse }]);
@@ -71,29 +68,20 @@ export default function CuerpoChat() {
     } catch (error) {
       console.error('Error al obtener la respuesta de GPT:', error);
       setMessages([...newMessages, { sender: 'Asistente IA', text: 'Lo siento, ha ocurrido un error. Por favor, intenta de nuevo.' }]);
+    } finally {
+      setSelectedFile(null); // Limpiar la imagen seleccionada después de enviar
     }
-  };
-
-  const extractCitaData = (responseText: string) => {
-    const fechaMatch = responseText.match(/fecha: (\d{4}-\d{2}-\d{2})/); // Ejemplo: "fecha: 2024-11-28"
-    const horaMatch = responseText.match(/hora: (\d{2}:\d{2})/); // Ejemplo: "hora: 14:00"
-    const especialidadMatch = responseText.match(/especialidad: (\w+)/); // Ejemplo: "especialidad: cardiología"
-    const doctorMatch = responseText.match(/doctor: Dr. ([\w\s]+)/); // Ejemplo: "doctor: Dr. López"
-  
-    if (fechaMatch && horaMatch) {
-      return {
-        fecha: fechaMatch[1],
-        hora: horaMatch[1],
-        especialidad: especialidadMatch ? especialidadMatch[1] : null,
-        doctor: doctorMatch ? doctorMatch[1] : null
-      };
-    }
-    return null;
   };
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleFileButtonClick = () => {
+    fileInputRef.current?.click();
+  };
 
   return (
     <div
@@ -135,20 +123,36 @@ export default function CuerpoChat() {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
+          <input
+            type="file"
+            accept="image/*"
+            className="hidden"
+            ref={fileInputRef}
+            onChange={(e) => setSelectedFile(e.target.files ? e.target.files[0] : null)}
+          />
           <button
-            className="bg-vita-link text-white text-sm font-bold px-4 py-2 rounded-r-lg hover:bg-vita-link-dark"
-            onClick={() => sendMessage(inputValue)}
+            className="bg-vita-link text-white text-sm font-bold px-4 py-2 ml-2 rounded-lg hover:bg-vita-link-dark flex items-center"
+            onClick={handleFileButtonClick}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
-            </svg>
+            <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/ffffff/stack-of-photos.png" alt="stack-of-photos"/>
+           
           </button>
+          
           <button
             className="bg-vita-link text-white text-sm font-bold px-4 py-2 ml-2 rounded-lg hover:bg-vita-link-dark"
             onClick={startListening}
             disabled={isListening}
           >
-            {isListening ? 'Escuchando...' : <img width="24" height="24" className='' src="https://img.icons8.com/ios-filled/50/ffffff/microphone.png" alt="microphone"/>}
+            {isListening ? 'Escuchando...' : <img width="24" height="24" src="https://img.icons8.com/ios-filled/50/ffffff/microphone.png" alt="microphone"/>}
+          </button>
+
+          <button
+            className="bg-vita-link text-white text-sm font-bold px-4 py-2 ml-2 rounded-lg hover:bg-vita-link-dark"
+            onClick={() => sendMessage(inputValue)}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+            </svg>
           </button>
         </div>
       </div>
