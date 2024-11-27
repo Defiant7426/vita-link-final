@@ -94,7 +94,7 @@ export default function Dermatologia() {
           Cuida tu piel con los mejores especialistas. Agenda tu cita.
         </h2>
         <a
-          href="/chatcita"
+          href="/cuestionarCita"
           className={`bg-vita-link text-white py-4 px-6 rounded-full font-semibold text-lg hover:bg-vita-link-dark mt-8 ${
             theme === 'dark' ? 'hover:bg-vita-link-dark-dark' : 'hover:bg-vita-link-dark-light'
           }`}

@@ -135,7 +135,7 @@ export default function Pediatria() {
           Confía en nuestros especialistas en pediatría. Agenda tu cita hoy.
         </h2>
         <a
-          href="/chatcita"
+          href="/cuestionarCita"
           className={`bg-vita-link text-white py-4 px-6 rounded-full font-semibold text-lg hover:bg-vita-link-dark mt-8 ${
             theme === 'dark' ? 'hover:bg-vita-link-dark-dark' : 'hover:bg-vita-link-dark-light'
           }`}
