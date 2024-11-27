@@ -29,27 +29,7 @@ export default function Cardiologia() {
         </div>
       </div>
 
-      {/* Video promocional */}
-      <div className="relative">
-        <div className="relative max-w-7xl py-96 mx-auto px-8 z-30">
-          <div className="max-w-7xl text-white flex flex-col items-center mt-auto">
-            <h1 className="text-6xl font-semibold leading-tight text-center">
-              Confía en nosotros para cuidar de tu corazón.
-            </h1>
-          </div>
-        </div>
-
-        <div className="absolute top-0 z-20 opacity-[60%] bg-gradient-to-r from-black from-25% bg-transparent w-full h-full"></div>
-
-        <video
-          autoPlay
-          loop
-          muted
-          className="absolute top-0 z-10 w-auto min-w-full object-fill max-h-full max-w-none"
-        >
-          <source src="/vitaLinkVidCardiology.mp4" type="video/mp4" />
-        </video>
-      </div>
+      
       {/* Compromiso */}
     <div
       className={`max-w-full mx-auto px-4 flex flex-col items-center py-32 ${

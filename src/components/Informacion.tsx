@@ -63,26 +63,7 @@ export default function Informacion() {
             </div>
         </div>
 
-        <div className="max-w-7xl mx-auto mt-8 px-4 flex flex-col items-center  ">
-            {/* Page Content */}
-            <div className='space-y-3 flex flex-col items-center'>
-                <h2 className="text-5xl font-semibold max-w-xl">
-                Trabaja en VitaLink
-                </h2>
-            </div>
-            <div className='max-w-4xl py-6'>
-                <p className='text-2xl text-slate-500'>
-                    VitaLink es una empresa en constante crecimiento y estamos en busca de talento para unirse a nuestro equipo. 
-                    Si eres una persona apasionada por la medicina y la atención al paciente, ¡queremos conocerte!
-                </p>
-            </div>
-
-            <div className='flex flex-col items-center gap-6'>
-                <a href="/empleos" className="bg-vita-link text-white py-4 px-6 rounded-full font-semibold text-sm hover:bg-vita-link-dark">
-                    Ver vacantes disponibles
-                </a>
-                </div>
-        </div>
+        
 
         <div className='py-14'>
             <Footer />
