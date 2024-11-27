@@ -15,6 +15,8 @@ import Dermatologia from './components/Dermatologia';
 import Pediatria from './components/Pediatria';
 import AsitenciaMedicamentos from './components/AsitenciaMedicamentos';
 import CuestionarioCita from './components/CuestionarioCita';
+import PreguntasFrecuentes from './components/PreguntasFrecuentes';
+import ResumenConsultas from './components/ResumenConsultas';
 
 
 function App() {
@@ -41,6 +43,8 @@ function App() {
         <Route path="/historialCitas" element={<HistorialCitas />} />
         <Route path="/chatImagen" element={<AsitenciaMedicamentos />} />
         <Route path="/cuestionarCita" element={<CuestionarioCita />} />
+        <Route path="/preguntasFrecuentes" element={<PreguntasFrecuentes />} />
+        <Route path="/resumenConsultas" element={<ResumenConsultas />} />
 
       </Routes>
     </Router>

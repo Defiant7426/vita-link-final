@@ -6,6 +6,10 @@ import "dotenv/config"
 import fs from 'fs';
 import multer from 'multer';
 
+// Obtener el nombre del archivo y el directorio actual
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const app = express();
 const port = 3001;
 
@@ -29,7 +33,6 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
-
 // Endpoint para login
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
@@ -40,7 +43,7 @@ app.post('/api/login', async (req, res) => {
     );
     if (result.rows.length > 0) {
       res.json({success:true, message: 'Login exitoso', user: result.rows[0] });
-    } else {  
+    } else {
       res.status(401).json({ error: 'Credenciales inválidas' });
     }
   } catch (err) {
@@ -236,6 +239,50 @@ app.post('/api/citas', async (req, res) => {
   } catch (err) {
     console.error('Error al registrar cita:', err.message);
     res.status(500).json({ error: 'No se pudo registrar la cita' });
+  }
+});
+
+
+// Endpoint para procesar el archivo de audio
+app.post('/api/process-audio', upload.single('audio'), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'No se ha enviado ningún archivo' });
+  }
+
+  try {
+    console.log("Se recibio archivo");
+
+    const audioPath = path.join(__dirname, 'uploads', req.file.filename);
+    console.log("Ruta de archivo: " + audioPath);
+
+    const audioFile = fs.createReadStream(audioPath);
+    console.log("Se almaceno archivo");
+
+    const transcription = await openai.audio.transcriptions.create(
+      {
+        model:"whisper-1",
+        file:audioFile
+    }
+    )
+
+    console.log("Transcripción realizada");
+    const text = transcription.text;
+    console.log("Texto transcrito: " + text);
+
+    // Generar resumen con GPT
+    const response = await openai.chat.completions.create({
+      model: "gpt-4",
+      messages: [
+        { role: 'system', content: 'Resume la consulta médica.' },
+        { role: 'user', content: text },
+      ],
+    });
+
+    const summary = response.choices[0].message.content;
+    res.json({ summary });
+  } catch (error) {
+    console.error('Error al procesar el audio:', error);
+    res.status(500).json({ error: 'No se pudo procesar el audio' });
   }
 });
 
