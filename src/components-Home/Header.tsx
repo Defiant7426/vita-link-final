@@ -1,16 +1,23 @@
 import { useState, useContext } from "react";
 import { ThemeContext } from "../../ThemeContext";
+import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
+  const navigate = useNavigate(); 
+
   const [menuQuestOpen, setMenuQuestOpen] = useState(false);
   const [menuEspecialidadesOpen, setMenuEspecialidadesOpen] = useState(false);
   const [menuModulosOpen, setMenuModulosOpen] = useState(false);
-
   const { theme, toggleTheme } = useContext(ThemeContext);
 
+
   // Clases dinámicas basadas en el tema
-  const headerClasses =
-    theme === "dark" ? "bg-[#152C2C] text-white" : "bg-white text-black";
+  const headerClasses = theme === "dark" ? "bg-[#152C2C] text-white" : "bg-white text-black";
+
+  const handleLogout = () => {
+    localStorage.removeItem("username");
+    navigate('/login')
+  };
 
   return (
     <header
@@ -24,6 +31,8 @@ export default function Header() {
 
         {/* Navegación */}
         <nav className="relative flex items-center gap-6">
+          {/*Menu "modulos"*/}
+          
           {/* Menú "Citas" */}
           <div
             className="relative"
@@ -52,26 +61,28 @@ export default function Header() {
               </svg>
             </div>
             {menuQuestOpen && (
-              <div className="absolute top-full left-0 w-48 bg-white shadow-lg rounded-md py-2 z-50">
-                <a
-                  href="/chatcita"
-                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-                >
-                  Nueva Cita
-                </a>
-                <a
-                  href="/citasPendientes"
-                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-                >
-                  Citas Pendientes
-                </a>
-                <a
-                  href="/historialCitas"
-                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-                >
-                  Historial de Citas
-                </a>
-              </div>
+              <div
+              className="absolute top-full left-0 w-48 bg-white shadow-lg rounded-md py-2 z-50"
+            >
+              <a
+                href="/cuestionarCita"
+                className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+              >
+                Nueva Cita
+              </a>
+              <a
+                href="/citasPendientes"
+                className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+              >
+                Citas Pendientes
+              </a>
+              <a
+                href="/historialCitas"
+                className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+              >
+                Historial de Citas
+              </a>
+            </div>
             )}
           </div>
 
@@ -104,30 +115,31 @@ export default function Header() {
             </div>
             {menuEspecialidadesOpen && (
               <div className="absolute top-full left-0 w-48 bg-white shadow-lg rounded-md py-2 z-50">
-                <a
-                  href="/cardiologia"
-                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-                >
-                  Cardiología
-                </a>
-                <a
-                  href="/pediatria"
-                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-                >
-                  Pediatría
-                </a>
-                <a
-                  href="/dermatologia"
-                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-                >
-                  Dermatología
-                </a>
-              </div>
+              <a
+                href="/cardiologia"
+                className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+              >
+                Cardiología
+              </a>
+              <a
+                href="/pediatria"
+                className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+              >
+                Pediatría
+              </a>
+              <a
+                href="/dermatologia"
+                className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+              >
+                Dermatología
+              </a>
+            </div>
+            
             )}
           </div>
 
           {/* Menú "Módulos" */}
-          <div
+        <div
             className="relative"
             onMouseEnter={() => setMenuModulosOpen(true)}
             onMouseLeave={() => setMenuModulosOpen(false)}
@@ -172,81 +184,96 @@ export default function Header() {
           </div>
         </nav>
 
+      
         {/* Barra lateral derecha */}
-        <div className="flex items-center gap-4">
-          {/* Botón de búsqueda */}
-          <div className="p-2 border border-gray-200 rounded-lg flex items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-gray-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-5.197-5.197M10.5 15.75a5.25 5.25 0 100-10.5 5.25 5.25 0 000 10.5z"
-              />
-            </svg>
-            <span className="text-gray-500">Buscar</span>
-          </div>
+<div className="flex items-center gap-4">
+  {/* Perfil */}
+  <a href="/perfil" className="hover:text-vita-link">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+      />
+    </svg>
+  </a>
 
-          {/* Perfil */}
-          <a href="/perfil" className="hover:text-vita-link">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-              />
-            </svg>
-          </a>
+      {/* Botón para alternar el tema */}
 
-          {/* Botón para alternar el tema */}
-          <button
-            onClick={toggleTheme}
-            className="bg-gray-200 dark:bg-gray-600 p-2 rounded"
-          >
-            {theme === "light" ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 3v1m0 16v1m8.66-9H21m-18 0H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.02 0l-.707-.707M6.343 6.343l-.707-.707M12 5a7 7 7 7 7 7 000 14z" />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 3v1m0 16v1m8.66-9H21m-18 0H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.02 0l-.707-.707M6.343 6.343l-.707-.707M12 5a7 7 7 7 7 7 000 14z" />
-              </svg>
-            )}
-          </button>
-        </div>
+      <button
+  onClick={toggleTheme}
+  className={`p-2 rounded-full border ${
+    theme === "light"
+      ? "bg-white border-gray-400 hover:bg-gray-100"
+      : "bg-gray-700 border-gray-700 hover:bg-gray-600"
+  }`}
+>
+  {theme === "light" ? (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-6 w-6 text-yellow-500"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
+      {/* Fondo del círculo del sol */}
+      <circle cx="12" cy="12" r="5" fill="white" stroke="currentColor" />
+      <line x1="12" y1="1" x2="12" y2="4" strokeLinecap="round" />
+      <line x1="12" y1="20" x2="12" y2="23" strokeLinecap="round" />
+      <line x1="4.22" y1="4.22" x2="6.34" y2="6.34" strokeLinecap="round" />
+      <line x1="17.66" y1="17.66" x2="19.78" y2="19.78" strokeLinecap="round" />
+      <line x1="1" y1="12" x2="4" y2="12" strokeLinecap="round" />
+      <line x1="20" y1="12" x2="23" y2="12" strokeLinecap="round" />
+      <line x1="4.22" y1="19.78" x2="6.34" y2="17.66" strokeLinecap="round" />
+      <line x1="17.66" y1="6.34" x2="19.78" y2="4.22" strokeLinecap="round" />
+    </svg>
+  ) : (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-6 w-6 text-gray-400"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
+      <path d="M9.37 5.51a7 7 0 1010.67 10.67A8.07 8.07 0 019.37 5.51z" />
+    </svg>
+  )}
+</button>
+
+
+
+    
+      {/* Botón de cierre de sesión */}
+      <button
+        onClick={handleLogout}
+        className="p-2 rounded-full bg-red-500 hover:bg-red-600 text-white"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h5a2 2 0 012 2v1"
+          />
+        </svg>
+      </button>
+    </div>
+
       </div>
     </header>
   );

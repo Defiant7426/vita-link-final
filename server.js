@@ -4,7 +4,6 @@ import cors from 'cors';
 import { query, createTable } from './db.js';
 import "dotenv/config"
 import fs from 'fs';
-import path from 'path';
 import multer from 'multer';
 
 const app = express();
@@ -55,10 +54,19 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const upload = multer({ dest: 'uploads/' });
 
+// Historial de mensajes para cada usuario
+const userMessages = {};
+
 // Endpoint para interpretar una imagen y un mensaje
 app.post('/api/interpret-image', upload.single('image'), async (req, res) => {
+  const userId = req.body.userId || 'default';
   const imagePath = req.file ? req.file.path : null;
   const message = req.body.message || '';
+
+  // Inicializar el historial de mensajes del usuario si no existe
+  if (!userMessages[userId]) {
+    userMessages[userId] = [];
+  }
 
   try {
     let imageBase64 = null;
@@ -68,6 +76,7 @@ app.post('/api/interpret-image', upload.single('image'), async (req, res) => {
     }
 
     const messages = [
+      ...userMessages[userId],
       {
         role: "user",
         content: [
@@ -80,7 +89,7 @@ app.post('/api/interpret-image', upload.single('image'), async (req, res) => {
     ];
 
     if (imageBase64) {
-      messages[0].content.push({
+      messages[messages.length - 1].content.push({
         type: "image_url",
         image_url: {
           url: `data:image/jpeg;base64,${imageBase64}`
@@ -92,6 +101,9 @@ app.post('/api/interpret-image', upload.single('image'), async (req, res) => {
       model: "gpt-4o-mini",
       messages: messages
     });
+
+    // Actualizar el historial de mensajes del usuario
+    userMessages[userId] = messages;
 
     res.json({ description: response.choices[0].message.content });
   } catch (error) {
@@ -211,6 +223,10 @@ app.post('/api/chat', async (req, res) => {
 app.post('/api/citas', async (req, res) => {
   const { username, fecha, hora, especialidad, doctor } = req.body;
 
+  if (!username || !fecha || !hora || !especialidad || !doctor) {
+    return res.status(400).json({ error: 'Faltan campos requeridos.' });
+  }
+  
   try {
     const result = await query(
       'INSERT INTO citas (username, fecha, hora, especialidad, doctor) VALUES ($1, $2, $3, $4, $5) RETURNING *',
@@ -222,6 +238,7 @@ app.post('/api/citas', async (req, res) => {
     res.status(500).json({ error: 'No se pudo registrar la cita' });
   }
 });
+
 
 app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);

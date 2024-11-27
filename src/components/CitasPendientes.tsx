@@ -17,7 +17,7 @@ export default function CitasPendientes() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
   const username = localStorage.getItem("username") || "Paciente";
-
+  
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
@@ -39,7 +39,7 @@ export default function CitasPendientes() {
     <ThemeProvider>
       <TopBar />
       <Header />
-
+    
       <main
         style={{
           display: "flex",

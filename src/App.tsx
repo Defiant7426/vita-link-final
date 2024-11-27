@@ -14,6 +14,7 @@ import HistorialCitas from './components/HistorialCitas';
 import Dermatologia from './components/Dermatologia';
 import Pediatria from './components/Pediatria';
 import AsitenciaMedicamentos from './components/AsitenciaMedicamentos';
+import CuestionarioCita from './components/CuestionarioCita';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
         <Route path="/citasPendientes" element={<CitasPendientes />} />
         <Route path="/historialCitas" element={<HistorialCitas />} />
         <Route path="/chatImagen" element={<AsitenciaMedicamentos />} />
+        <Route path="/cuestionarCita" element={<CuestionarioCita />} />
 
       </Routes>
     </Router>
