@@ -7,7 +7,7 @@ import { ThemeContext } from "../../ThemeContext";
 type Message = {
   sender: string;
   text: string;
-  image?: string; // Hacer 'image' opcional
+  image?: string | null; // Hacer 'image' opcional
 };
 
 export default function ChatImagen() {
