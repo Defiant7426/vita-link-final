@@ -3,9 +3,16 @@ import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import { ThemeContext } from "../../ThemeContext";
 
+// Define el tipo para el mensaje
+type Message = {
+  sender: string;
+  text: string;
+  image?: string; // Hacer 'image' opcional
+};
+
 export default function ChatImagen() {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<Message[]>([
     { sender: 'Asistente IA', text: 'Hola, ¿en qué puedo ayudarte a interpretar una imagen?' }
   ]);
   const [inputValue, setInputValue] = useState('');
@@ -154,9 +161,7 @@ export default function ChatImagen() {
             {imagePreview ? (
               <img src={imagePreview} alt="Imagen seleccionada" className="w-6 h-6 rounded" />
             ) : (
-              <>
-                <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/ffffff/stack-of-photos.png" alt="stack-of-photos"/>
-              </>
+              <img width="24" height="24" src="https://img.icons8.com/material-rounded/24/ffffff/stack-of-photos.png" alt="stack-of-photos"/>
             )}
           </button>
           <button
